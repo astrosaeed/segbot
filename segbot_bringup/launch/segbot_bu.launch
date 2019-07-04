@@ -31,7 +31,7 @@
   <!-- Sick tim laser -->
   <include file="$(find segbot_sensors)/launch/sick_tim/sick_tim_filters.launch"></include>
 
-  <node name="static_transform_publisher" type="static_transform_publisher" pkg="tf" args="0 0 0 0 0 0 base_link laser 100"></node>
+  <node name="static_transform_publisher" type="static_transform_publisher" pkg="tf" args="0 0 0 0 0 0 base_footprint laser 100"></node>
 
 
 

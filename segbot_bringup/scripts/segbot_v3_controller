@@ -30,7 +30,8 @@ class Controller():
         self.odom_frame_id = rospy.get_param('~odom_frame_id', 'odom')
         self.robot_frame_id = rospy.get_param('~robot_frame_id', 'base_footprint')
         self.publish_tf = rospy.get_param('~publish_tf', True)
-
+	print 'publish_tf is:'
+	print self.publish_tf
         self.stop_timer = None
 
         self.target_linear_vel = 0.0
@@ -65,10 +66,10 @@ class Controller():
     def odom_callback(self, msg):
         msg.header.frame_id = self.odom_frame_id
         msg.child_frame_id = self.robot_frame_id
-
+	print 'inside odom callback'
         # Modify position appropriately.
-        msg.pose.pose.position.x = msg.pose.pose.position.x # reverse x
-        msg.pose.pose.position.y = msg.pose.pose.position.y # reverse y
+        msg.pose.pose.position.x = -msg.pose.pose.position.x # reverse x
+        msg.pose.pose.position.y = -msg.pose.pose.position.y # reverse y
         quaternion = (msg.pose.pose.orientation.x,
                       msg.pose.pose.orientation.y,
                       msg.pose.pose.orientation.z,
@@ -78,9 +79,10 @@ class Controller():
         msg.pose.pose.orientation = Quaternion(*quaternion)
 
         # Modify velocity appropriately.
-        msg.twist.twist.linear.x = -msg.twist.twist.linear.x
+        msg.twist.twist.linear.x = msg.twist.twist.linear.x
 
         if self.publish_tf:
+	    print 'publish_tf is true'    
             br = tf.TransformBroadcaster()
             br.sendTransform((msg.pose.pose.position.x, msg.pose.pose.position.y, msg.pose.pose.position.z),
                              quaternion,
@@ -155,7 +157,7 @@ class Controller():
                     angular_vel -= self.angular_neg_accel_limit
 
             twist = Twist()
-            twist.linear.x = linear_vel
+            twist.linear.x = - linear_vel
             twist.angular.z = angular_vel
             self.cmd_pub.publish(twist)
             rate.sleep()
