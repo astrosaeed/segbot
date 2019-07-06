@@ -96,7 +96,7 @@ class Controller():
         self.target_angular_vel = 0
 
     def cmd_callback(self, msg):
-        self.target_linear_vel = -msg.linear.x
+        self.target_linear_vel = msg.linear.x
         self.target_angular_vel = msg.angular.z
         if self.stop_timer is not None:
            self.stop_timer.shutdown()
@@ -157,7 +157,7 @@ class Controller():
                     angular_vel -= self.angular_neg_accel_limit
 
             twist = Twist()
-            twist.linear.x = - linear_vel
+            twist.linear.x = linear_vel
             twist.angular.z = angular_vel
             self.cmd_pub.publish(twist)
             rate.sleep()
