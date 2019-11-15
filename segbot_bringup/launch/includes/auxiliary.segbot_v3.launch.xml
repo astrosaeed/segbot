@@ -30,11 +30,12 @@
   </node>
 
   <!-- Velodyne specific: launch the laserscan converter -->
+  <!-- commented by Saeid 
   <include file="$(find segbot_sensors)/launch/velodyne/velodyne-laserscan.launch">
     <arg name="tf_prefix" value="$(arg tf_prefix)" />
     <arg name="in_topic" value="velodyne/points_filtered" />
     <arg name="launch_nodelet_manager" value="$(arg launch_velodyne_nodelet_manager)" />
   </include>
-
+  -->
 </launch>
 
