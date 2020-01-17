@@ -3,7 +3,7 @@
 set -e
 
 tmpfile=`mktemp /tmp/tempfile.XXXXXXXXX`
-cp `rospack find segbot_navigation`/rviz/nav_eband_marvin.rviz $tmpfile
+cp `rospack find segbot_navigation`/rviz/ortho.rviz $tmpfile
 if [ "$1" == "ns" ]
 then
   # A robot name has been specified. Simply replace the keyword marvin with supplied robot name.
